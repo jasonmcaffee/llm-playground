@@ -29,6 +29,9 @@ response1 = openai.ChatCompletion.create(
     messages=[
         {"role": "user", "content": user_question},
     ],
+    # This means functions count against the model's context limit and are billed as input tokens. If running into
+    # context limits, we suggest limiting the number of functions or the length of documentation you provide for
+    # function parameters.
     functions=[
         {
             "name": "get_transactions",
