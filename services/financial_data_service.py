@@ -46,7 +46,7 @@ def convert_to_csv(domain_transactions: List[Transaction]) -> str:
     :param domain_transactions:
     :return:
     """
-    fieldnames = ["amount", "date", "name", "merchant_name", "category_detailed", "category_primary"]
+    fieldnames = ["amount", "date", "name", "category_detailed"]
 
     with io.StringIO() as csv_string:
         writer = csv.DictWriter(csv_string, fieldnames=fieldnames)
@@ -54,6 +54,8 @@ def convert_to_csv(domain_transactions: List[Transaction]) -> str:
         for transaction in domain_transactions:
             transaction_dict = vars(transaction)
             transaction_dict.pop("account_id", None) # Exclude account_id, otherwise you get: ValueError: dict contains fields not in fieldnames: 'account_id'
+            transaction_dict.pop("merchant_name", None) # Exclude merchant_name
+            transaction_dict.pop("category_primary", None) # Exclude category_primary as it can be inferred by detailed category
             writer.writerow(vars(transaction))
 
         return csv_string.getvalue()

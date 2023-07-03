@@ -40,13 +40,13 @@ class PlaidService:
         api_client = plaid.ApiClient(configuration)
         self.client = plaid_api.PlaidApi(api_client)
 
-    def get_transactions(self) -> TransactionsGetResponse:
+    def get_transactions(self, start_date: str = "01/01/2020", end_date: str = "01/01/2121") -> TransactionsGetResponse:
         date_format = "%m/%d/%Y"
         # Create a request to retrieve transactions
         request = TransactionsGetRequest(
             access_token=self.access_token,
-            start_date=datetime.strptime("04/01/2023", date_format).date(),
-            end_date=datetime.strptime("7/01/2023", date_format).date(),
+            start_date=datetime.strptime(start_date, date_format).date(),
+            end_date=datetime.strptime(end_date, date_format).date(),
             options=TransactionsGetRequestOptions(include_personal_finance_category=True)
         )
 
