@@ -1,0 +1,4 @@
+openai
+plaid-python
+tiktoken
+python-dotenv

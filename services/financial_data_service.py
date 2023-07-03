@@ -52,6 +52,8 @@ def convert_to_csv(domain_transactions: List[Transaction]) -> str:
         writer = csv.DictWriter(csv_string, fieldnames=fieldnames)
         writer.writeheader()
         for transaction in domain_transactions:
+            transaction_dict = vars(transaction)
+            transaction_dict.pop("account_id", None) # Exclude account_id, otherwise you get: ValueError: dict contains fields not in fieldnames: 'account_id'
             writer.writerow(vars(transaction))
 
         return csv_string.getvalue()

@@ -6,12 +6,22 @@ from plaid.api import plaid_api
 from plaid.model.transactions_get_request import TransactionsGetRequest
 from plaid.model.transactions_get_request_options import TransactionsGetRequestOptions
 from plaid.model.transactions_get_response import TransactionsGetResponse
+from dotenv import dotenv_values
+
+env_vars = dotenv_values("../.env")
 
 
 class PlaidService:
+    """
+    Service for interacting with Plaid.
+    Requires that you have an .env file created with PLAID_CLIENT_ID and PLAID_SECRET
+    """
     def __init__(self):
-        client_id = "jason"
-        secret = "jason"
+
+        client_id = env_vars.get('PLAID_CLIENT_ID')
+        secret = env_vars.get('PLAID_SECRET')
+
+        # hardcode example user for now.
         self.access_token = "access-sandbox-6e3fdd93-0897-4891-9ba7-381b9affa567"
 
         # Set your environment: 'Production', 'Development', or 'Sandbox'
